@@ -46,6 +46,7 @@ class Rocket : AnimatedGameObject
         Player player = GameWorld.Find("player") as Player;
         if (this.CollidesWith(player) && this.Visible)
             //implement the collision action here
+            GameEnvironment.GameStateManager.SwitchTo("levelMenuState")
             ;
     }
 }

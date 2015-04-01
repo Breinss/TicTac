@@ -8,8 +8,9 @@ partial class Level : GameObjectList
         base.HandleInput(inputHelper);
         if (quitButton.Pressed)
         {
+            GameEnvironment.GameStateManager.SwitchTo("levelMenuState");
             this.Reset();
-            GameEnvironment.GameStateManager.SwitchTo("levelMenu");
+            
         }      
     }
 

@@ -52,7 +52,7 @@ class PlayingState : IGameLoopObject
 
     public virtual void HandleInput(InputHelper inputHelper)
     {
-        CurrentLevel.HandleInput(inputHelper);
+        CurrentLevel.HandleInput(inputHelper); 
     }
 
     public virtual void Update(GameTime gameTime)
