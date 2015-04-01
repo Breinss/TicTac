@@ -26,6 +26,8 @@ partial class Level : GameObjectList
             {
                 Tile t = LoadTile(textlines[y][x], x, y);
                 tiles.Add(t, x, y);
+                this.Add(new GameObjectList(1,"waterdrops"));
+                this.Add(new GameObjectList(1,"enemies"));
             }
     }
 
@@ -43,6 +45,10 @@ partial class Level : GameObjectList
                 return LoadStartTile(x, y);
             case '#':
                 return LoadBasicTile("spr_wall", TileType.Normal);
+            case 'W':
+                return LoadWaterTile(x, y);
+            case 'R':
+                return LoadRocketTile(true, new Vector2(x, y));
             default:
                 return new Tile("");
         }
@@ -69,9 +75,31 @@ partial class Level : GameObjectList
     {
         TileField tiles = this.Find("tiles") as TileField;
         SpriteGameObject exitObj = new SpriteGameObject("Sprites/spr_goal", 1, "exit");
-        exitObj.Position = new Vector2(x * tiles.CellWidth, (y+1) * tiles.CellHeight);
+        exitObj.Position = new Vector2(x * tiles.CellWidth, (y + 1) * tiles.CellHeight);
         exitObj.Origin = new Vector2(0, exitObj.Height);
         this.Add(exitObj);
+        return new Tile();
+    }
+
+    private Tile LoadWaterTile(int x, int y)
+    {
+        GameObjectList waterdrops = this.Find("waterdrops") as GameObjectList;
+        TileField tiles = this.Find("tiles") as TileField;
+        WaterDrop w = new WaterDrop();
+        w.Origin = w.Center;
+        w.Position = new Vector2(x * tiles.CellWidth, y * tiles.CellHeight - 10);
+        w.Position += new Vector2(tiles.CellWidth, tiles.CellHeight) / 2;
+        waterdrops.Add(w);
+        return new Tile();
+    }
+
+    private Tile LoadRocketTile(bool moveToLeft, Vector2 startposition)
+    {
+        GameObjectList enemies = this.Find("enemies") as GameObjectList;
+        TileField tiles = this.Find("tiles") as TileField;
+        Rocket r = new Rocket(moveToLeft, new Vector2(startposition.X * tiles.CellWidth, startposition.Y * tiles.CellHeight - 10) + new Vector2(tiles.CellWidth, tiles.CellHeight) / 2);
+        r.Origin = r.Center;
+        enemies.Add(r);
         return new Tile();
     }
 }
