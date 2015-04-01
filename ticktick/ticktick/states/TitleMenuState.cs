@@ -20,6 +20,6 @@ class TitleMenuState : GameObjectList
     {
         base.HandleInput(inputHelper);
         if (playButton.Pressed)
-            GameEnvironment.GameStateManager.SwitchTo("levelMenu");
+            GameEnvironment.GameStateManager.SwitchTo("levelMenuState");
     }
 }

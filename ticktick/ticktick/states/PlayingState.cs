@@ -74,7 +74,7 @@ class PlayingState : IGameLoopObject
     {
         CurrentLevel.Reset();
         if (currentLevelIndex >= levels.Count - 1)
-            GameEnvironment.GameStateManager.SwitchTo("levelMenu");
+            GameEnvironment.GameStateManager.SwitchTo("levelMenuState");
         else
         {
             CurrentLevelIndex++;
